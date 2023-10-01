@@ -35,35 +35,3 @@
 
 ### Тестирование программы:
 Программа может быть протестирована с использованием стандартных средств Python для тестирования, таких как unittest или pytest. Создайте тестовые сценарии для каждого метода, проверяя их корректность и обработку ошибок.
-
-### Пример тестирования (используя unittest):
-```python
-import unittest
-from database import NoteDatabase
-
-class TestNoteDatabase(unittest.TestCase):
-    def setUp(self):
-        self.note_db = NoteDatabase(':memory:')  # Используем временную базу данных для тестирования
-
-    def test_add_note(self):
-        self.note_db.add_note("Test Title", "Test Content")
-        notes = self.note_db.get_all_notes()
-        self.assertEqual(len(notes), 1)
-
-    def test_search_notes(self):
-        self.note_db.add_note("Test Note 1", "Content 1")
-        self.note_db.add_note("Test Note 2", "Content 2")
-        result = self.note_db.search_notes("Test")
-        self.assertEqual(len(result), 2)
-
-    def test_delete_note(self):
-        self.note_db.add_note("Note to Delete", "Delete me")
-        notes_before = self.note_db.get_all_notes()
-        self.note_db.delete_note(1)
-        notes_after = self.note_db.get_all_notes()
-        self.assertEqual(len(notes_before) - 1, len(notes_after))
-
-if __name__ == '__main__':
-    unittest.main()
-
-```
